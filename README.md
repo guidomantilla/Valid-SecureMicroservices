@@ -8,3 +8,7 @@
 6. Proyectos GitHub descargados
 7. 
 8. 
+
+
+docker container stop valid_oauth2 valid_movies
+docker container start valid_oauth2 valid_movies
