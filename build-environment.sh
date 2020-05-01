@@ -1,6 +1,7 @@
 echo "" && echo "##### LIMPIANDO AMBIENTE DOCKER LOCAL #####" && echo ""
 docker container rm --force valid_mysql
 docker container rm --force valid_oauth2
+docker container rm --force valid_oauth2
 docker network rm valid_network
 
 echo "" && echo "##### DESCARGANDO PROYECTOS GITHUB #####" && echo ""
@@ -11,6 +12,7 @@ rm -rf valid_mysql-scripts
 rm -rf valid_oauth2-server
 
 git clone git@github.com:guidomantilla/valid_mysql-scripts.git
+echo ""
 git clone git@github.com:guidomantilla/valid_oauth2-server.git
 
 echo "" && echo "##### PROYECTOS DESCARGADOS: #####"  && echo ""
@@ -33,6 +35,6 @@ sh build.sh valid_mysql 3308
 
 echo "" && echo "----- OAUTH2 SERVER"  && echo ""
 cd $PROJECT_OAUTH2_FOLDER
-sh build.sh valid_oauth2 8443 valid_mysql
+sh build.sh valid_oauth2 8445 valid_mysql
 
 
