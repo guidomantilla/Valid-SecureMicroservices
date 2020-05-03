@@ -1,12 +1,15 @@
 # Valid  Movies Rental
 This project was created as part of Valid's Hiring Process ( hope I can get the job :) )
 
+This project is under [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+
+
 # How to build this project?
 
 ## Prerequisites
-This project was develop and "tested" on an Ubuntu OS, so you will need a linux-based OS for building and running using the procedure below.
+This project was develop and "tested" on an Ubuntu OS, so you will need a linux-based OS for building and running the project using the procedure below.
 
-You will need to free at least 2.5GB of your RAM, just for running this project.
+You will need to free at least 2.5GB of your RAM, just for running.
 
 Also, your machine will need:
 * Java 8+
@@ -46,7 +49,7 @@ sh build-environment.sh
 ![Image 1](docker-status.png)
 
 #### Note: 
-You may have the situation where the mysql database container (**valid-mysql**) it's not ready yet to receive requests. So the movies API container (**valid-movies**) and the oauth2 server container (**valid-oauth2**) will have troubles to start.
+You may have the situation where the mysql database container (**valid-mysql**) it's not ready to receive requests yet. So the movies API container (**valid-movies**) and the oauth2 server container (**valid-oauth2**) will have troubles to start.
 
 In this case, wait for a couple of minutes, and the execute:
 ```
@@ -60,8 +63,8 @@ In the procedure above, we execute the file
 ```
 sh build-environment.sh
 ```
-The files executes the following:
-1. **Delete local docker environment**: This file will create a docker environment for running and testing this project, and it is expected that you will run this files manny times. So, the first thing this project does, is delete that docker environment. 
+The file executes the following:
+1. **Delete local docker environment**: This file will create a docker environment for running and testing this project, and it is expected that you will run this file many times. So, the first thing this file does, is deleting that docker environment. 
 ```
 docker container rm --force valid-mysql
 docker container rm --force valid-oauth2
@@ -89,8 +92,8 @@ git clone git@github.com:guidomantilla/valid_movies-web.git
 4. **Create local docker environment**: This file will execute a build.sh file that every project has. This build.sh will build the source code and create the docker image locally.  
 ```
 docker network create valid-network
-
 ```
+
 * **valid_mysql-scripts git repository**: Here we create the project's database. We specify the docker image and container name and the port where the container will listen for requests.
 ```
 sh build.sh valid-mysql 3308
@@ -112,37 +115,27 @@ sh build.sh valid-movies 7444 valid-mysql
 sh build.sh valid-web 7445 valid-oauth2 valid-movies
 ```
 
-
-
-
-
-
-# Foobar
-
-Foobar is a Python library for dealing with word pluralization.
-
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```bash
-pip install foobar
+# Usage
+Once all docker containers are up and running, you can open your browser and enter:
 ```
-
-## Usage
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+https://localhost:7445/
 ```
+Then you can use any of these credentials:
+```
+* user: Admin   password: password
+* user: Jon     password: password
+* user: Mike    password: password
+```
+![Image 1](login.png)
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Then, the application redirect you to the home screen.
 
-Please make sure to update tests as appropriate.
+![Image 1](home.png)
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+On the right corner, you will basic a very basic user info. There you will find the logout option.
+
+![Image 1](logout.png)
+
+If you enter any invalid URL, the application will show you a 404 page.
+
+![Image 1](404.png)
