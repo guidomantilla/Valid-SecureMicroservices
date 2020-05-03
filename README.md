@@ -12,6 +12,9 @@ Maybe, I will create a full feature web application on a near future.
 
 This project is under [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
+# Technical Stuff
+You will find all the *stuff that matters* (like Martin Fowler will say it) [here](TECHME.md)
+
 
 # How to build this project?
 
