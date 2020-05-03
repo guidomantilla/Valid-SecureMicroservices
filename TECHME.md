@@ -1,155 +1,110 @@
-# Valid  Movies Rental
-This project was created as part of Valid's Hiring Process ( hope I can get the job :) )
+# Technical Scope
+The scope for this project is:
 
-This is a very basic application, with just 3 use cases:
-* Login
-* Logout
-* Show a movies list
+Create an web application that:
+1. Allows an User to Login
+2. Allows an User to Logout
+3. Shows some information on-screen. This information must come from a backend application
+4. Security is a **must**
+5. Spring Framework is **bonus**
+6. Microservices principles is a **bonus**
 
-This demo is more about backend security.
+# Technical Documentation
 
-Maybe, I will create a full feature web application on a near future.
+## Dictionary
 
-This project is under [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+For this project, the following definitions are made:
+* **System**: The hole project scope. This project will consist of 4 applications.
+* **Application**: One logical deployment unit that allocates a logical set of related responsabilities.
 
-# Technical Stuff
-You will find all the *stuff that matters* (like Martin Fowler will say it) [here](TECHME.md)
+
+## Architecture
+This project architecture consists of 4 applications like this.
+
+* **Mysql Database**: For storing business and security data
+* **Oauth2 Server**: For application and user authentication, also for user authorization.
+* **API Server**: For exposing business data
+* **Web App**: For UI presentation and user interaction
+
+### Mysql Database
+This database will store business and security data. However, each data category will be store in different schemas, following the [Schema-per-Service](https://microservices.io/patterns/data/database-per-service.html).
+
+#### valid-security schema
+
+* **oauth_client_details**: This table will store application-level credentials, following OAUTH2 guidelines. So this table for application-level **Authentication**.
+![Image 1](img/oauth_client_details.png)
+The most relevant columns are:
+    * **client_id**: A client application "username"
+    * **client_secret**: A client application "password". This password will be stored as a hash, using [bcrypt algorithm](https://en.wikipedia.org/wiki/Bcrypt)
+
+* **users**: This table will store end-user-level credentials. So this table for end-user-level **Authentication**.
+![Image 1](img/users.png)
+The most relevant columns are:
+    * **username**: A end-user username
+    * **password**: A end-user password. This password will be stored as a hash, using [bcrypt algorithm](https://en.wikipedia.org/wiki/Bcrypt)
+
+* **authorities**: This table will store end-user-level permissions. So this table for end-user-level **Authorization**.
+![Image 1](img/authorities.png)
 
 
-# How to build this project?
+#### valid-movie-rental schema
 
-## Prerequisites
-This project was develop and "tested" on an Ubuntu OS, so you will need a linux-based OS for building and running the project using the procedure below.
+* **films**: This table will store the movies inventory. Business data.
+![Image 1](img/films.png)
 
-You will need to free at least 2.5GB of your RAM, just for running.
+#### Disclaimer
 
-![Image 1](img/docker.png)
+The **films** table comes from [Sakila sample database](https://dev.mysql.com/doc/sakila/en/)
 
-Also, your machine will need:
-* Java 8+
-* Gradle 5.5+
-* Docker 18+
-* Git 2.17+
+The **users** and **authorities** tables come from [Spring Security database schemas](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/appendix-schema.html)
 
-![Image 1](img/prerequisites.png)
 
-## Procedure
-1. Create a folder that will hold all the projects. Then we move into that folder.
+### Oauth2 Server
+This app will focus on **Authentication** and **Authorization**. Both applications and users will authenticate with this application. Furthermore, users will be authorized here.
+
+This application will access the **valid-security schema** for these propuses. 
+
+For all of this, `Spring Security` from `Spring Framework` is used. The most relevante `Gradle` information are:
+
+```gradle
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-security'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
+```
+
+
+#### How the Authentication and Authorization works?
+This application follows OAUTH2 Guidelines combined with JWT. For that, a RSA keystore is used (`jwt.jks`) and exposes the `/oauth/token` route. This URI will execute the Authentication and Authorization describe above. You can used it, using the following `curl` command.
 ```bash
-mkdir valid-movies-rental-holder
-cd valid-movies-rental-holder
+curl --location --request POST 'https://localhost:7443/oauth/token' \
+--header 'Authorization: Basic VkFMSURfTU9WSUVfUkVOVEFMX1dFQjpWQUxJRF9NT1ZJRV9SRU5UQUxfV0VC' \
+--form 'grant_type=password' \
+--form 'username=Admin' \
+--form 'password=password'
 ```
-2. Clone this git repository using either:
-```
-git@github.com:guidomantilla/Valid-SecureMicroservices
-```
-or
+For more details regarding this usage, check this [postman project](postman/valid_oauth2-server.postman_collection.json).
 
-```
-https://github.com/guidomantilla/Valid-SecureMicroservices.git
-```
-3. Move into new folder
+Notice that the URI is secure using `HTTPS` . For this, a RSA keystore is used (`ssl.p12`).
 
-```
-cd Valid-SecureMicroservices
-```
-4. Execute the file
-
-```
-sh build-environment.sh
-```
-5. That's it!! If everything goes well you will have 4 docker containters Up and Running (the ones with the valid-* pattern name) within thier own network (valid-network of course). 
-
-![Image 1](img/docker-status.png)
-
-#### Note: 
-You may have the situation where the mysql database container (**valid-mysql**) it's not ready to receive requests yet. So the movies API container (**valid-movies**) and the oauth2 server container (**valid-oauth2**) will have troubles to start.
-
-In this case, wait for a couple of minutes, and the execute:
-```
-docker container stop valid-oauth2 valid-movies
-docker container start valid-oauth2 valid-movies
+A client application  will use the URI with `Basic` authentication passing it's credentials in the `header`. This credendials will be compared with the information store in the database.
+```sql
+select client_id, client_secret from valid-security.oauth_client_details;
 ```
 
-# What just happend? 
-In the procedure above, we execute the file 
-
-```
-sh build-environment.sh
-```
-The file executes the following:
-1. **Delete local docker environment**: This file will create a docker environment for running and testing this project, and it is expected that you will run this file many times. So, the first thing this file does, is deleting that docker environment. 
-```
-docker container rm --force valid-mysql
-docker container rm --force valid-oauth2
-docker container rm --force valid-movies
-docker container rm --force valid-web
-docker network rm valid-network
+Also, the client application will provide the end-user username and password in the `form` space for that. This credendials will be compared with the information store in the database.
+```sql
+select username, password from valid-security.users;
 ```
 
-2. **Delete local git repositories**: The same reasoning from above, but for the local repositories.
+For a request, you can use the `curl` from command above. The response will be something like this:
+```json
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6IkFkbWluIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdLCJleHAiOjE1ODg1NDAyNTMsImF1dGhvcml0aWVzIjpbInJvbGVfYWRtaW4iXSwianRpIjoiMzRiMzUwNjgtZGM0YS00ZmVmLWE5ZmYtY2RlYzU5ZTBkYTViIiwiY2xpZW50X2lkIjoiVkFMSURfTU9WSUVfUkVOVEFMX1dFQiJ9.TI2q3Kzjg4FDVZ2uTTt1bIjC14HEhIbTXc4ElkFzqbH2mlbm9Nsty_RKSKiSW-cPWL2AJfH7dqiRhxQ1477XW_TShsfSpODJTYIgcZtdJVciYVz9-rZSDF2G296BWCRAFQKG9l6vxejPLLO9b70eEww9L6A-0o7AfQDTTAVZ8v5ddZBcByJ9tZQuJZbuOchDbLqTMawDJHfcQjaNBOEkgt0PjrKn07iEHIUyd697PyQDi9FF6KnsJ_hWjhn34g7DulBTmuEMYMj8ghs6rgOx2QnAJufSh8B-WueaH-6OZV3Wpow1sMFWoaeJ0JRZl97kU8nGHbtRBjYwNc5cDYp0tg",
+    ...
+}
 ```
-rm -rf valid_mysql-scripts
-rm -rf valid_oauth2-server
-rm -rf valid_movies-api
-rm -rf valid_movies-web
-```
+For this project, the most relevant json field is `access_token`. This token **must** be used as an authorization mechanism for invoking the API URI later on.
 
-3. **Create local git repositories**.
-```
-git clone git@github.com:guidomantilla/valid_mysql-scripts.git
-git clone git@github.com:guidomantilla/valid_oauth2-server.git
-git clone git@github.com:guidomantilla/valid_movies-api.git
-git clone git@github.com:guidomantilla/valid_movies-web.git
-```
 
-4. **Create local docker environment**: This file will execute a build.sh file that every project has. This build.sh will build the source code and create the docker image locally.  
-```
-docker network create valid-network
-```
-
-* **valid_mysql-scripts git repository**: Here we create the project's database. We specify the docker image and container name and the port where the container will listen for requests.
-```
-sh build.sh valid-mysql 3308
-```
-
-* **valid_oauth2-server git repository**: Here we create the project's OAuth2 Server. We specify the docker image and container name, the port where the container will listen for requests and the mysql database container name.  
-```
-sh build.sh valid-oauth2 7443 valid-mysql
-```
-
-* **valid_movies-api git repository**: Here we create the project's API app. We specify the docker image and container name, the port where the container will listen for requests and the mysql database container name.  
-
-```
-sh build.sh valid-movies 7444 valid-mysql
-```
-
-* **valid_movies-web git repository**: Here we create the project's Web app. We specify the docker image and container name, the port where the container will listen for requests, the oauth2 server container name and the API container name.
-```
-sh build.sh valid-web 7445 valid-oauth2 valid-movies
-```
-
-# How to use the application?
-Once all docker containers are up and running, you can open your browser and enter:
-```
-https://localhost:7445/
-```
-Then you can use any of these credentials:
-```
-user: Admin   password: password
-user: Jon     password: password
-user: Mike    password: password
-```
-![Image 1](img/login.png)
-
-Then, the application redirect you to the home screen.
-
-![Image 1](img/home.png)
-
-On the right corner, you will basic a very basic user info. There you will find the logout option.
-
-![Image 1](img/logout.png)
-
-If you enter any invalid URL, the application will show you a 404 page.
-
-![Image 1](img/404.png)
