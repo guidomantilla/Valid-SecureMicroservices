@@ -24,7 +24,7 @@ This project architecture consists of 4 applications like this.
 * **Mysql Database**: For storing business and security data
 * **Oauth2 Server**: For application and user authentication, also for user authorization.
 * **API Server**: For exposing business data
-* **Web App**: For UI presentation and user interaction
+* **Web App**: For UI presentation
 
 ### Mysql Database
 This database will store business and security data. However, each data category will be store in different schemas, following the [Schema-per-Service](https://microservices.io/patterns/data/database-per-service.html).
@@ -33,13 +33,15 @@ This database will store business and security data. However, each data category
 
 * **oauth_client_details**: This table will store application-level credentials, following OAUTH2 guidelines. So this table for application-level **Authentication**.
 ![Image 1](img/oauth_client_details.png)
-The most relevant columns are:
+
+    The most relevant columns are:
     * **client_id**: A client application "username"
     * **client_secret**: A client application "password". This password will be stored as a hash, using [bcrypt algorithm](https://en.wikipedia.org/wiki/Bcrypt)
 
 * **users**: This table will store end-user-level credentials. So this table for end-user-level **Authentication**.
 ![Image 1](img/users.png)
-The most relevant columns are:
+
+    The most relevant columns are:
     * **username**: A end-user username
     * **password**: A end-user password. This password will be stored as a hash, using [bcrypt algorithm](https://en.wikipedia.org/wiki/Bcrypt)
 
