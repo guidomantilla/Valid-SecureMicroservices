@@ -45,7 +45,7 @@ sh build-environment.sh
 
 ![Image 1](docker-status.png)
 
-### Note: 
+#### Note: 
 You may have the situation where the mysql database container (**valid-mysql**) it's not ready yet to receive requests. So the movies API container (**valid-movies**) and the oauth2 server container (**valid-oauth2**) will have troubles to start.
 
 In this case, wait for a couple of minutes, and the execute:
@@ -53,6 +53,69 @@ In this case, wait for a couple of minutes, and the execute:
 docker container stop valid-oauth2 valid-movies
 docker container start valid-oauth2 valid-movies
 ```
+
+# What just happend? 
+In the procedure above, we execute the file 
+
+```
+sh build-environment.sh
+```
+The files executes the following:
+1. **Delete local docker environment**: This file will create a docker environment for running and testing this project, and it is expected that you will run this files manny times. So, the first thing this project does, is delete that docker environment. 
+```
+docker container rm --force valid-mysql
+docker container rm --force valid-oauth2
+docker container rm --force valid-movies
+docker container rm --force valid-web
+docker network rm valid-network
+```
+
+2. **Delete local git repositories**: The same reasoning from above, but for the local repositories.
+```
+rm -rf valid_mysql-scripts
+rm -rf valid_oauth2-server
+rm -rf valid_movies-api
+rm -rf valid_movies-web
+```
+
+3. **Create local git repositories**.
+```
+git clone git@github.com:guidomantilla/valid_mysql-scripts.git
+git clone git@github.com:guidomantilla/valid_oauth2-server.git
+git clone git@github.com:guidomantilla/valid_movies-api.git
+git clone git@github.com:guidomantilla/valid_movies-web.git
+```
+
+4. **Create local docker environment**: This file will execute a build.sh file that every project has. This build.sh will build the source code and create the docker image locally.  
+```
+docker network create valid-network
+
+```
+* **valid_mysql-scripts git repository**: Here we create the project's database. We specify the docker image and container name and the port where the container will listen for requests.
+```
+sh build.sh valid-mysql 3308
+```
+
+* **valid_oauth2-server git repository**: Here we create the project's OAuth2 Server. We specify the docker image and container name, the port where the container will listen for requests and the mysql database container name.  
+```
+sh build.sh valid-oauth2 7443 valid-mysql
+```
+
+* **valid_movies-api git repository**: Here we create the project's API app. We specify the docker image and container name, the port where the container will listen for requests and the mysql database container name.  
+
+```
+sh build.sh valid-movies 7444 valid-mysql
+```
+
+* **valid_movies-web git repository**: Here we create the project's Web app. We specify the docker image and container name, the port where the container will listen for requests, the oauth2 server container name and the API container name.
+```
+sh build.sh valid-web 7445 valid-oauth2 valid-movies
+```
+
+
+
+
+
 
 # Foobar
 
