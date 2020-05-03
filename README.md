@@ -1,6 +1,15 @@
 # Valid  Movies Rental
 This project was created as part of Valid's Hiring Process ( hope I can get the job :) )
 
+This is a very basic application, with just 3 use cases:
+* Login
+* Logout
+* Show a movies list
+
+This demo is more about backend security.
+
+Maybe, I will create a full feature web application on a near future.
+
 This project is under [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
 
@@ -10,6 +19,8 @@ This project is under [Apache License 2.0](https://choosealicense.com/licenses/a
 This project was develop and "tested" on an Ubuntu OS, so you will need a linux-based OS for building and running the project using the procedure below.
 
 You will need to free at least 2.5GB of your RAM, just for running.
+
+![Image 1](img/docker.png)
 
 Also, your machine will need:
 * Java 8+
@@ -115,7 +126,7 @@ sh build.sh valid-movies 7444 valid-mysql
 sh build.sh valid-web 7445 valid-oauth2 valid-movies
 ```
 
-# Usage
+# How to use the application?
 Once all docker containers are up and running, you can open your browser and enter:
 ```
 https://localhost:7445/
