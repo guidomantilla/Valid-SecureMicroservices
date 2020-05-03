@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "0d256bf6-e550-46ec-a9aa-83097032918c",
+		"name": "valid_oauth2-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/oauth/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VALID_MOVIE_RENTAL_WEB",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "VALID_MOVIE_RENTAL_WEB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "Y55rJh",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7443/oauth/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7443",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/oauth/token_key",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "USER_CLIENT_APP",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "USER_CLIENT_APP-123+",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:7445/oauth/token_key",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7445",
+					"path": [
+						"oauth",
+						"token_key"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/oauth/check_token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:7445/oauth/check_token/?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6InVzZXIiLCJzY29wZSI6WyJyb2xlX3VzZXIiXSwiZXhwIjoxNTg4MjIxMzczLCJhdXRob3JpdGllcyI6WyJyb2xlX3VzZXIiXSwianRpIjoiNDUwM2ZiYTgtZTY2NC00ZDhiLTlkYjQtODhkNDVmODI4YTMyIiwiY2xpZW50X2lkIjoiVVNFUl9DTElFTlRfQVBQIn0.ChHZwVeinqaOymKJC4R2Aq9j4EoH9JHQPu1MHB8V317rXxwDKKHsP0Mtc51mvNuzsZkXzJyDkN8hTF8bng98uiTv-EhMiAwNHBeCt7dtDBkya6eYxk4s59GEbrCIqb6O3O30cbineXx00syeij4qGABeNnnr0nZPoRfmusm7zDuJVN9nKrYdS-D_v3ub7jjzBMMJKg8PRFepKGh4ZiJ4Ju0ZN2UvykfyHr7jphSnnL2yL0lEQa2oA2cnsdEbqT1bvObMtpV3DMpISrMlHNpzLiVj7nP1RbZcdEIl3XMhMu9vzZ8JX0a6irMVjCAsmGazWOpGh_BnkJtu_XC2DZ383w",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7445",
+					"path": [
+						"oauth",
+						"check_token",
+						""
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6InVzZXIiLCJzY29wZSI6WyJyb2xlX3VzZXIiXSwiZXhwIjoxNTg4MjIxMzczLCJhdXRob3JpdGllcyI6WyJyb2xlX3VzZXIiXSwianRpIjoiNDUwM2ZiYTgtZTY2NC00ZDhiLTlkYjQtODhkNDVmODI4YTMyIiwiY2xpZW50X2lkIjoiVVNFUl9DTElFTlRfQVBQIn0.ChHZwVeinqaOymKJC4R2Aq9j4EoH9JHQPu1MHB8V317rXxwDKKHsP0Mtc51mvNuzsZkXzJyDkN8hTF8bng98uiTv-EhMiAwNHBeCt7dtDBkya6eYxk4s59GEbrCIqb6O3O30cbineXx00syeij4qGABeNnnr0nZPoRfmusm7zDuJVN9nKrYdS-D_v3ub7jjzBMMJKg8PRFepKGh4ZiJ4Ju0ZN2UvykfyHr7jphSnnL2yL0lEQa2oA2cnsdEbqT1bvObMtpV3DMpISrMlHNpzLiVj7nP1RbZcdEIl3XMhMu9vzZ8JX0a6irMVjCAsmGazWOpGh_BnkJtu_XC2DZ383w"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

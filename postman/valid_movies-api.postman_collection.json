@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "31ea0c36-caef-468d-9732-5337d297161c",
+		"name": "valid_movies-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/films",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6IkFkbWluIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdLCJleHAiOjE1ODg0NDg3ODIsImF1dGhvcml0aWVzIjpbInJvbGVfYWRtaW4iXSwianRpIjoiNGZhMjQ1YzItYjBlMC00OGVjLWI1ZjAtODQwZmY0MTE4ODhiIiwiY2xpZW50X2lkIjoiVkFMSURfTU9WSUVfUkVOVEFMX1dFQiJ9.Zm9Mr9DW2NkZJO0fIqpo87n1u2OYGPM6l5bchB7P0Vv9j7TqqfekN_tW53sF4tkV7V34GGNQy9qV38MJfUJOJW4p1MXpJaqsXQSLAIm5fbEj-PIysO5W8wTHF-qBVIrlXRFOy1hUycmBunQXNa1Ac86HfTi0u8gdvfxb5seLxY-7q9a4jNpU76aTtTztdhRI89u65tmIJAefldTxRNhe0x42k3_qCIEwpje1hG1zC50iGU_i1cIGk6AijBkgbAXGmErKkgsqVKpTx-skewMFxsZjNygvwFTEgiuvGcRUKVV7y0GTgR31gQ-kXNxu2h8IpO_FJu4QEixzoddnTiCV6Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7444/films",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7444",
+					"path": [
+						"films"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

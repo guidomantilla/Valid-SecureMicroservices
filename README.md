@@ -17,7 +17,7 @@ Also, your machine will need:
 * Docker 18+
 * Git 2.17+
 
-![Image 1](prerequisites.png)
+![Image 1](img/prerequisites.png)
 
 ## Procedure
 1. Create a folder that will hold all the projects. Then we move into that folder.
@@ -46,7 +46,7 @@ sh build-environment.sh
 ```
 5. That's it!! If everything goes well you will have 4 docker containters Up and Running (the ones with the valid-* pattern name) within thier own network (valid-network of course). 
 
-![Image 1](docker-status.png)
+![Image 1](img/docker-status.png)
 
 #### Note: 
 You may have the situation where the mysql database container (**valid-mysql**) it's not ready to receive requests yet. So the movies API container (**valid-movies**) and the oauth2 server container (**valid-oauth2**) will have troubles to start.
@@ -122,20 +122,20 @@ https://localhost:7445/
 ```
 Then you can use any of these credentials:
 ```
-* user: Admin   password: password
-* user: Jon     password: password
-* user: Mike    password: password
+user: Admin   password: password
+user: Jon     password: password
+user: Mike    password: password
 ```
-![Image 1](login.png)
+![Image 1](img/login.png)
 
 Then, the application redirect you to the home screen.
 
-![Image 1](home.png)
+![Image 1](img/home.png)
 
 On the right corner, you will basic a very basic user info. There you will find the logout option.
 
-![Image 1](logout.png)
+![Image 1](img/logout.png)
 
 If you enter any invalid URL, the application will show you a 404 page.
 
-![Image 1](404.png)
+![Image 1](img/404.png)
