@@ -243,7 +243,8 @@ The security implemented in this project consist of:
     **Note**: The comunication with the database is "secure". Both, OAuth2 Server and API Server uses the `root` credentials for accesing the database.
 
 3. **Isolated network for communication between the servers**: All servers are attached to and isolated doker-network. Other components in another docker-nerwotk can't access the servers from this project.
-**Note**: The only weakness is that all servers are bridged with the `host`, for development porpuses. This open-door can be close just by creating the containers without any `port-mapping`.
+
+	**Note**: The only weakness is that all servers are bridged with the `host`, for development porpuses. This open-door can be close just by creating the containers without any `port-mapping`.
 
 4. **Secured Credentials**: All credentials are stored using [bcrypt algorithm](https://en.wikipedia.org/wiki/Bcrypt). All credentials handling are delegated to `Spring Security`.
 
