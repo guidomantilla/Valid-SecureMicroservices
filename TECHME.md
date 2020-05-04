@@ -27,7 +27,7 @@ This project architecture consists of 4 applications like this.
 * **Web App**: For UI presentation
 
 ### Mysql Database
-This database will store business and security data. However, each data category will be store in different schemas, following the [Schema-per-Service](https://microservices.io/patterns/data/database-per-service.html).
+This database will store business and security data. However, each data category will be store in different schemas, following the [Schema-per-Service Pattern](https://microservices.io/patterns/data/database-per-service.html).
 
 #### valid-security schema
 
@@ -62,7 +62,7 @@ The **users** and **authorities** tables come from [Spring Security database sch
 
 
 ### Oauth2 Server
-This app will focus on **Authentication** and **Authorization**. Both applications and users will authenticate with this application. Furthermore, users will be authorized here.
+This app will focus on **Authentication** and **Authorization**. Both applications and users will authenticate with this application. Furthermore, users will be authorized here. 
 
 This application will access the **valid-security schema** for these propuses. 
 
@@ -75,10 +75,11 @@ For all of this, `Spring Security` from `Spring Framework` is used. The most rel
     implementation 'org.springframework.cloud:spring-cloud-starter-security'
     implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
 ```
+Having the **Authentication** and **Authorization** isolated from the rest of the system, is an implementation of the [Microservices Pattern](https://microservices.io/patterns/microservices.html).
 
 
 #### How the Authentication and Authorization works?
-This application follows OAUTH2 Guidelines combined with JWT. For that, a RSA keystore is used (`jwt.jks`) and exposes the `/oauth/token` route. This URI will execute the Authentication and Authorization describe above. You can used it, using the following `curl` command.
+This application follows OAUTH2 Guidelines combined with JWT. For that, a RSA keystore is used (`jwt.jks`) and the application exposes the `/oauth/token` route. This URI will execute the Authentication and Authorization describe above. This URI can be invoked, using the following `curl` command.
 ```bash
 curl --location --request POST 'https://localhost:7443/oauth/token' \
 --header 'Authorization: Basic VkFMSURfTU9WSUVfUkVOVEFMX1dFQjpWQUxJRF9NT1ZJRV9SRU5UQUxfV0VC' \
@@ -100,7 +101,7 @@ Also, the client application will provide the end-user username and password in 
 select username, password from valid-security.users;
 ```
 
-For a request, you can use the `curl` from command above. The response will be something like this:
+For a request, use the `curl` from command above. The response will be something like this:
 ```json
 {
     "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6IkFkbWluIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdLCJleHAiOjE1ODg1NDAyNTMsImF1dGhvcml0aWVzIjpbInJvbGVfYWRtaW4iXSwianRpIjoiMzRiMzUwNjgtZGM0YS00ZmVmLWE5ZmYtY2RlYzU5ZTBkYTViIiwiY2xpZW50X2lkIjoiVkFMSURfTU9WSUVfUkVOVEFMX1dFQiJ9.TI2q3Kzjg4FDVZ2uTTt1bIjC14HEhIbTXc4ElkFzqbH2mlbm9Nsty_RKSKiSW-cPWL2AJfH7dqiRhxQ1477XW_TShsfSpODJTYIgcZtdJVciYVz9-rZSDF2G296BWCRAFQKG9l6vxejPLLO9b70eEww9L6A-0o7AfQDTTAVZ8v5ddZBcByJ9tZQuJZbuOchDbLqTMawDJHfcQjaNBOEkgt0PjrKn07iEHIUyd697PyQDi9FF6KnsJ_hWjhn34g7DulBTmuEMYMj8ghs6rgOx2QnAJufSh8B-WueaH-6OZV3Wpow1sMFWoaeJ0JRZl97kU8nGHbtRBjYwNc5cDYp0tg",
