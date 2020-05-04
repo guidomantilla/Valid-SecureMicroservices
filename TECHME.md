@@ -236,7 +236,7 @@ The security implemented in this project consist of:
 
 1. **Secure transportation layer communication between the servers**: All comunication between the servers uses HTTPS protocol with RSA keystore for asymmetric cryptography.
 
-    **Note**: The comunication with the database is insececure. Does not implement any security at transportation layer. 
+    **Note**: The comunication with the database is insecure. Does not implement any security at transportation layer. 
 
 2. **Secure authentication and authorization communication between the servers**: All comunication between the servers uses credentials (or credential-based generated tokens).
 
