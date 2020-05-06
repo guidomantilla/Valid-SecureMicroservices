@@ -14,13 +14,13 @@ rm -rf valid_oauth2-server
 rm -rf valid_movies-api
 rm -rf valid_movies-web
 
-git clone git@github.com:guidomantilla/valid_mysql-scripts.git
+https://github.com/guidomantilla/valid_mysql-scripts.git
 echo ""
-git clone git@github.com:guidomantilla/valid_oauth2-server.git
+https://github.com/guidomantilla/valid_oauth2-server.git
 echo ""
-git clone git@github.com:guidomantilla/valid_movies-api.git
+https://github.com/guidomantilla/valid_movies-api.git
 echo ""
-git clone git@github.com:guidomantilla/valid_movies-web.git
+https://github.com/guidomantilla/valid_movies-web.git
 
 echo "" && echo "##### PROYECTOS DESCARGADOS: #####"  && echo ""
 echo "$(ls -h)"
