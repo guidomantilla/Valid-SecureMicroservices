@@ -25,11 +25,6 @@ git clone https://github.com/guidomantilla/valid_movies-web.git
 echo "" && echo "##### PROYECTOS DESCARGADOS: #####"  && echo ""
 echo "$(ls -h)"
 
-PROJECT_MYSQL_FOLDER=$WORK_DIR/valid_mysql-scripts
-PROJECT_OAUTH2_FOLDER=$WORK_DIR/valid_oauth2-server
-PROJECT_MOVIES_FOLDER=$WORK_DIR/valid_movies-api
-PROJECT_WEB_FOLDER=$WORK_DIR/valid_movies-web
-
 echo "" && echo "##### CREANDO AMBIENTE DOCKER LOCAL #####"  && echo ""
 cd $WORK_DIR/Valid-SecureMicroservices
 docker-compose up -d --build

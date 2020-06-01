@@ -87,6 +87,9 @@ curl --location --request POST 'https://localhost:7443/oauth/token' \
 --form 'username=Admin' \
 --form 'password=password'
 ```
+#### Note: 
+You may will find the situation where you may need to execute this command with the `--insecure` flag.
+
 For more details regarding this usage, check this [postman project](postman/valid_oauth2-server.postman_collection.json).
 
 Notice that the URI is secure using `HTTPS` . For this, a RSA keystore is used (`ssl.p12`).
@@ -129,6 +132,9 @@ This application exposes many URI's. However due this project's scope, the URI t
 curl --location --request GET 'https://localhost:7444/films' \
 --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6IkFkbWluIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdLCJleHAiOjE1ODg1NTU5OTIsImF1dGhvcml0aWVzIjpbInJvbGVfYWRtaW4iXSwianRpIjoiMjk2MmYzYzctODQwYy00OWJkLThkZjctMmU2OTQ3YTQ2OWM0IiwiY2xpZW50X2lkIjoiVkFMSURfTU9WSUVfUkVOVEFMX1dFQiJ9.Jm8uMdHMc-sL6FEDvSV5tbHZbbn2ygxTxCvXRZw5lvWDBmda-5tSV-aGzUQiE_qcCdIeza5iQr-2xq58eqF2Ukq0DfvzOx4A5h55neFsMGUQhTgWgQ54eQMAMIQOMRhyVprmrja1-YKy54LuRkAWa8_NQv-SAT4j3MZzzdALwEkSC0JGKJhwad30aqcRCam3WRr-nJ04xBiSrAwTOnKTl8m9n3AQTZ4lUkdozzPJp3S3m3QTJRUFtH93_UxDyke3QJDfAtFwfXEL0cW0cTMijTXsGnIF_xEKt7betCNppq_2ESo8MBOxbmwl2nuB1inmbD3nhK-mplg4l-2rXw05XA'
 ```
+#### Note: 
+You may will find the situation where you may need to execute this command with the `--insecure` flag.
+
 For more details regarding this usage, check this [postman project](postman/valid_movies-api.postman_collection.json).
 
 Notice that the URI is secure using `HTTPS` . For this, a RSA keystore is used (`ssl.p12`).
