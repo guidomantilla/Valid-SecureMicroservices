@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+  valid-mysql:
+    build:
+      context: ../valid_mysql-scripts/
+    image: valid-mysql
+    container_name: valid-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: v4l1d-gu1d0-m4nt*
+    ports:
+      - 3308:3306
+      - 33080:33060
+    networks:
+      - valid-network
+
+  valid-oauth2:
+    build:
+      context: ../valid_oauth2-server/
+    image: valid-oauth2
+    container_name: valid-oauth2
+    restart: always
+    environment:
+      VALID_APP_NAME: valid-oauth2
+      VALID_MYSQL_HOSTNAME: valid-mysql
+    ports:
+      - 7443:8443
+    networks:
+      - valid-network
+    depends_on:
+      - valid-mysql
+
+  valid-movies:
+    build:
+      context: ../valid_movies-api/
+    image: valid-movies
+    container_name: valid-movies
+    restart: always
+    environment:
+      VALID_APP_NAME: valid-movies
+      VALID_MYSQL_HOSTNAME: valid-mysql
+    ports:
+      - 7444:8443
+    networks:
+      - valid-network
+    depends_on:
+      - valid-mysql
+
+  valid-web:
+    build:
+      context: ../valid_movies-web/
+    image: valid-web
+    container_name: valid-web
+    restart: always
+    environment:
+      VALID_APP_NAME: valid-movies
+      VALID_MOVIES_OAUTH2_HOSTNAME: valid-oauth2
+      VALID_MOVIES_API_HOSTNAME: valid-movies
+    ports:
+      - 7445:8443
+    networks:
+      - valid-network
+    depends_on:
+      - valid-oauth2
+      - valid-movies
+
+networks:
+  valid-network:
+    name: valid-network
+    driver: bridge

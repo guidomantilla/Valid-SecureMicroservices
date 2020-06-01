@@ -25,26 +25,5 @@ git clone https://github.com/guidomantilla/valid_movies-web.git
 echo "" && echo "##### PROYECTOS DESCARGADOS: #####"  && echo ""
 echo "$(ls -h)"
 
-PROJECT_MYSQL_FOLDER=$WORK_DIR/valid_mysql-scripts
-PROJECT_OAUTH2_FOLDER=$WORK_DIR/valid_oauth2-server
-PROJECT_MOVIES_FOLDER=$WORK_DIR/valid_movies-api
-PROJECT_WEB_FOLDER=$WORK_DIR/valid_movies-web
-
 echo "" && echo "##### CREANDO AMBIENTE DOCKER LOCAL #####"  && echo ""
-docker network create valid-network
-
-echo "" && echo "----- MYSQL"  && echo ""
-cd $PROJECT_MYSQL_FOLDER
-sh build.sh valid-mysql 3308
-
-echo "" && echo "----- OAUTH2 SERVER"  && echo ""
-cd $PROJECT_OAUTH2_FOLDER
-sh build.sh valid-oauth2 7443 valid-mysql
-
-echo "" && echo "----- MOVIES API"  && echo ""
-cd $PROJECT_MOVIES_FOLDER
-sh build.sh valid-movies 7444 valid-mysql
-
-echo "" && echo "----- MOVIES WEB"  && echo ""
-cd $PROJECT_WEB_FOLDER
-sh build.sh valid-web 7445 valid-oauth2 valid-movies
+docker-compose up -d --build
