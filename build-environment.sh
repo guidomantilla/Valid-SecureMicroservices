@@ -27,5 +27,5 @@ echo "$(ls -h)"
 
 echo "" && echo "##### CREANDO AMBIENTE DOCKER LOCAL #####"  && echo ""
 cd $WORK_DIR/Valid-SecureMicroservices
-docker-compose up -d --build
+docker compose up -d --build
 
